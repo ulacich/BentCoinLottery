@@ -14,7 +14,7 @@ library(cowplot)
 
 set.seed(1993)
 
-n_samples <-1000
+n_samples <-100
 len_ticket <- 20
 p_heads <- 0.1
 
@@ -22,7 +22,7 @@ lottery_data <- data.frame(n_count_ones=array(0,dim=len_ticket+1))
 lottery_data$count_ones <- as.numeric(row.names(lottery_data)) - 1
 for (i_sample in 1:n_samples) {
   n_ones <- sum(generate_bent_coin_ticket(n_flips=len_ticket))
-  lottery_data$n_count_ones[n_ones+1] <- lottery_data$n_count_ones[n_ones] + 1
+  lottery_data$n_count_ones[n_ones+1] <- lottery_data$n_count_ones[n_ones+1] + 1
 }
 
 lottery_data$p_count_ones <- lottery_data$n_count_ones / n_samples
