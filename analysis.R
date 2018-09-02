@@ -14,29 +14,36 @@ library(cowplot)
 
 set.seed(1993)
 
-n_samples <-100
-len_ticket <- 20
-p_heads <- 0.1
+sample_count_ones_probabilities <- function(n_samples=100, len_ticket=10, p_heads=0.3) {
+  
+  lottery_data <- data.frame(n_count_ones=array(0,dim=len_ticket+1))
+  lottery_data$count_ones <- as.numeric(row.names(lottery_data)) - 1
+  for (i_sample in 1:n_samples) {
+    n_ones <- sum(generate_bent_coin_ticket(n_flips=len_ticket))
+    lottery_data$n_count_ones[n_ones+1] <- lottery_data$n_count_ones[n_ones+1] + 1
+  }
 
-lottery_data <- data.frame(n_count_ones=array(0,dim=len_ticket+1))
-lottery_data$count_ones <- as.numeric(row.names(lottery_data)) - 1
-for (i_sample in 1:n_samples) {
-  n_ones <- sum(generate_bent_coin_ticket(n_flips=len_ticket))
-  lottery_data$n_count_ones[n_ones+1] <- lottery_data$n_count_ones[n_ones+1] + 1
+  lottery_data$p_count_ones <- lottery_data$n_count_ones / n_samples
+  
+  lottery_data$p_theoretical <- dpois(0:len_ticket,p_heads*len_ticket)
+  
+  return(lottery_data)
 }
 
-lottery_data$p_count_ones <- lottery_data$n_count_ones / n_samples
+plot_count_ones_probabilities_with_fit <- function(lottery_data) {
 
-g_ones <- ggplot(lottery_data, aes(x=count_ones, y=p_count_ones)) +
-  geom_point(size = 3) + xlab("# of 1's") + ylab("probability")
-g_ones
+  g_ones <- ggplot(lottery_data, aes(x=count_ones, y=p_count_ones)) +
+    geom_point(size = 3) + xlab("# of 1's") + ylab("probability")
+  g_ones
 
-lottery_data$p_theoretical <- dpois(0:len_ticket,p_heads*len_ticket)
+  g_ones <- g_ones + geom_line(data=lottery_data, aes(x=count_ones, y=p_theoretical),  
+                                             linetype='dashed', colour='#006400') +  
+    geom_point(data=lottery_data, aes(x=count_ones, y=p_theoretical),  
+               colour='#006400', shape=0, size = 3)
+  g_ones
 
-g_ones <- g_ones + geom_line(data=lottery_data, aes(x=count_ones, y=p_theoretical),  
-                                           linetype='dashed', colour='#006400') +  
-  geom_point(data=lottery_data, aes(x=count_ones, y=p_theoretical),  
-             colour='#006400', shape=0, size = 3)
-g_ones
+  png("figure_1.png")
+}
 
-png("figure_1.png")
+lottery_data <- sample_count_ones_probabilities()
+plot_count_ones_probabilities_with_fit(lottery_data)
