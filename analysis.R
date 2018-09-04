@@ -10,7 +10,6 @@
 source("lottery.R")
 
 library(ggplot2)
-library(cowplot)
 
 set.seed(1993)
 
@@ -42,8 +41,9 @@ plot_count_ones_probabilities_with_fit <- function(lottery_data) {
                colour='#006400', shape=0, size = 3)
   g_ones
 
-  png("figure_1.png")
+  return(g_ones)
 }
 
 lottery_data <- sample_count_ones_probabilities()
-plot_count_ones_probabilities_with_fit(lottery_data)
+g <- plot_count_ones_probabilities_with_fit(lottery_data)
+print(g)
