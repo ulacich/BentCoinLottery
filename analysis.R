@@ -11,7 +11,7 @@ source("lottery.R")
 
 library(ggplot2)
 
-set.seed(1993)
+set.seed(2018)
 
 sample_count_ones_probabilities <- function(n_samples=100, len_ticket=20, p_heads=0.1) {
   
