@@ -10,7 +10,6 @@ library(stats)
 default_ticket_length <- 10
 default_probability_heads <- 0.1
 
-generate_bent_coin_ticket <- function(n_flips=default_ticket_length,
-                            probability_heads=default_probability_heads){
+generate_bent_coin_ticket <- function(n_flips, probability_heads){
   rbinom(n_flips, 1, probability_heads)
 }

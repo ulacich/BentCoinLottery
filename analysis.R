@@ -13,12 +13,16 @@ library(ggplot2)
 
 set.seed(2018)
 
-sample_count_ones_probabilities <- function(n_samples=100, len_ticket=20, p_heads=0.1) {
+number_of_samples <- 100
+length_of_ticket <- 20
+probability_of_heads <- 0.1
+
+sample_count_ones_probabilities <- function(n_samples, len_ticket, p_heads) {
   
   lottery_data <- data.frame(n_count_ones=array(0,dim=len_ticket+1))
   lottery_data$count_ones <- as.numeric(row.names(lottery_data)) - 1
   for (i_sample in 1:n_samples) {
-    n_ones <- sum(generate_bent_coin_ticket(n_flips=len_ticket))
+    n_ones <- sum(generate_bent_coin_ticket(len_ticket, p_heads))
     lottery_data$n_count_ones[n_ones+1] <- lottery_data$n_count_ones[n_ones+1] + 1
   }
 
@@ -44,6 +48,6 @@ plot_count_ones_probabilities_with_fit <- function(lottery_data) {
   return(g_ones)
 }
 
-lottery_data <- sample_count_ones_probabilities()
+lottery_data <- sample_count_ones_probabilities(number_of_samples, length_of_ticket, probability_of_heads)
 g <- plot_count_ones_probabilities_with_fit(lottery_data)
 print(g)
