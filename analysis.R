@@ -13,7 +13,7 @@ library(ggplot2)
 
 set.seed(1993)
 
-sample_count_ones_probabilities <- function(n_samples=100, len_ticket=10, p_heads=0.3) {
+sample_count_ones_probabilities <- function(n_samples=100, len_ticket=20, p_heads=0.1) {
   
   lottery_data <- data.frame(n_count_ones=array(0,dim=len_ticket+1))
   lottery_data$count_ones <- as.numeric(row.names(lottery_data)) - 1
