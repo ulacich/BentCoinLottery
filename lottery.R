@@ -1,25 +1,25 @@
 # 
-# Author: Graham Smith
+# Author: Graham Smith & Stephanie Palmer
 # 
-# A simulation of a lottery based on flipping a bent coin 10 times
+# A simulation of a lottery based on flipping a bent coin some number of times
 #
-# Currently written with questionable coding practices
+# Currently written with questionable better practices
 #
-
 
 library(stats)
 
-ticket <- array(0,10)
-for (i in 1:10){
-  # flip a bent coin with probability 0.1 of heads
-  ticket[i] <- if (runif(1) < 0.1) 1 else 0
-}
+ticket_length <- 10
+prob_heads <- 0.1
+number_of_tickets <- 3
 
-for (j in 1:100){
-  ticket <- array(0,10)
-  for (i in 1:10){
-    # flip a bent coin with probability 0.1 of heads
-    ticket[i] <- if (runif(1) < 0.1) 1 else 0
-  }
+generate_ticket <- function(length,prob){
+  ticket <- rbinom(length,1,prob)
+  return(ticket)
+}
+  
+ticket <- generate_ticket(ticket_length,prob_heads)
+
+for (ticket_j in 1:number_of_tickets){
+  ticket <- rbinom(ticket_length,1,prob_heads)
   print(ticket)
 }
