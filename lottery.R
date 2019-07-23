@@ -9,17 +9,15 @@
 
 library(stats)
 
-ticket <- array(0,10)
+arr <- array(0,10)
 for (i in 1:10){
-  # flip a bent coin with probability 0.1 of heads
-  ticket[i] <- if (runif(1) < 0.1) 1 else 0
+  arr[i] <- if (runif(1) < 0.1) 1 else 0
 }
 
 for (j in 1:100){
-  ticket <- array(0,10)
+  arr <- array(0,10)
   for (i in 1:10){
-    # flip a bent coin with probability 0.1 of heads
-    ticket[i] <- if (runif(1) < 0.1) 1 else 0
+    arr[i] <- if (runif(1) < 0.1) 1 else 0
   }
-  print(ticket)
+  print(arr)
 }
