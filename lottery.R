@@ -9,6 +9,8 @@
 
 library(stats)
 
+# Small edit! from class 1!
+
 arr <- array(0,10)
 for (i in 1:10){
   arr[i] <- if (runif(1) < 0.1) 1 else 0
